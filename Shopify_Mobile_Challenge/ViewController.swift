@@ -62,8 +62,14 @@ class ViewController: UIViewController {
                     let numberFormatter = NSNumberFormatter()
                     numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
                     
-                    self.label_revenue.text = String("$\(numberFormatter.stringFromNumber(self.total_order_revenue)!)")
-                    self.label_keyboards.text = String("\(self.num_keyboard)")
+                    // run UI changes on main thread for instant update
+                    dispatch_async(dispatch_get_main_queue()) {
+                        
+                        // update label
+                        
+                        self.label_revenue.text = String("$\(numberFormatter.stringFromNumber(self.total_order_revenue)!)")
+                        self.label_keyboards.text = String("\(self.num_keyboard)")
+                    }
                     
                     print(self.total_order_revenue)
                     print(self.num_keyboard);
@@ -82,8 +88,6 @@ class ViewController: UIViewController {
         
         outputValues()
         
-    }override func layoutSublayersOfLayer(layer: CALayer) {
-        <#code#>
     }
 }
 
